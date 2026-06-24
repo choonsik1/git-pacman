@@ -80,12 +80,15 @@ export function buildGrid(contributions: ContributionGrid): PacmanGrid {
   // new floor cell is already connected — avoids isolated floor islands.
   breakLargeWallBlobs(cells, cols, rows);
 
-  // ── Step 3: enforce connectivity — any floor cell unreachable from the
-  // DFS start reverts to wall so Pac-Man never needs to teleport. ──
+  // ── Step 3: enforce connectivity ──
   const [startC, startR] = findCenter(cells, cols, rows);
   pruneIsolatedFloors(cells, cols, rows, startC, startR);
 
-  return { cells, cols, rows, path: dfsPath(cells, cols, rows, startC, startR, activeCells.length) };
+  // ── Step 4: sprinkle cherries — 5% of active dots, evenly spaced across
+  // the grid in scan order, independent of teleporting. ──
+  sprinkleCherries(cells, cols, rows);
+
+  return { cells, cols, rows, path: dfsPath(cells, cols, rows, startC, startR) };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -228,17 +231,33 @@ function findCenter(cells: Cell[][], cols: number, rows: number): [number, numbe
   return [bestC, bestR];
 }
 
-/** DFS through non-wall cells from (startC, startR).
- *  The subgraph should be fully connected after pruneIsolatedFloors, but if
- *  any disconnected components remain, the first active cell of each one is
- *  promoted to "cherry" (up to 5% of total active dots, minimum 0) so the
- *  teleport is visually signalled rather than silently happening mid-dot. */
+/**
+ * Evenly sprinkles cherries across active cells — exactly floor(5% of active
+ * dot count), spaced uniformly through the left-to-right scan order so they
+ * appear distributed across the whole chart rather than clustered.
+ */
+function sprinkleCherries(cells: Cell[][], cols: number, rows: number): void {
+  const active: [number, number][] = [];
+  for (let c = 0; c < cols; c++)
+    for (let r = 0; r < rows; r++)
+      if (cells[c][r].cellType === "active") active.push([c, r]);
+
+  const count = Math.floor(active.length * 0.05);
+  if (count === 0) return;
+
+  // Pick `count` evenly-spaced indices through the active list
+  for (let i = 0; i < count; i++) {
+    const idx = Math.round(((i + 0.5) / count) * active.length);
+    const [c, r] = active[Math.min(idx, active.length - 1)];
+    cells[c][r].cellType = "cherry";
+  }
+}
+
+/** DFS through non-wall cells from (startC, startR). */
 function dfsPath(
   cells: Cell[][], cols: number, rows: number,
-  startC: number, startR: number,
-  totalActiveDots: number
+  startC: number, startR: number
 ): PathStep[] {
-  const maxCherries = Math.floor(totalActiveDots * 0.05);
   const visited = Array.from({ length: cols }, () => new Array<boolean>(rows).fill(false));
   const path: PathStep[] = [];
 
@@ -259,20 +278,14 @@ function dfsPath(
 
   dfs(startC, startR, "right");
 
-  // Safety fallback for any remaining disconnected components.
-  // Mark the first active cell of each new component as a cherry (max 4 total)
-  // so the teleport arrival point gets a visual marker.
-  let cherryCount = 0;
+  // Safety fallback for any remaining disconnected components (should be rare
+  // after pruneIsolatedFloors, but handled gracefully).
   let more = true;
   while (more) {
     more = false;
     for (let c = 0; c < cols; c++) {
       for (let r = 0; r < rows; r++) {
         if (!visited[c][r] && cells[c][r].cellType !== "wall") {
-          if (cells[c][r].cellType === "active" && cherryCount < maxCherries) {
-            cells[c][r].cellType = "cherry";
-            cherryCount++;
-          }
           dfs(c, r, path[path.length - 1].direction);
           more = true; break;
         }
