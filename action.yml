@@ -1,7 +1,7 @@
-name: 'Git Pacman'
+name: 'Pac-Man Contribution Animation'
 description: 'Generates an animated Pac-Man eating your GitHub contribution dots and embeds it in your profile README'
 branding:
-  icon: 'zap'
+  icon: 'circle'
   color: 'yellow'
 
 inputs:
