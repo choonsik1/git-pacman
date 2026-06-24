@@ -28,7 +28,11 @@ jobs:
         run: npm install
 
       - name: Build packages
-        run: npm run build
+        run: |
+          npm run build --workspace packages/github-contributions
+          npm run build --workspace packages/grid
+          npm run build --workspace packages/svg-creator
+          npm run build --workspace packages/action
 
       - name: Generate SVG
         env:

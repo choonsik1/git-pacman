@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build --workspace packages/github-contributions && npm run build --workspace packages/grid && npm run build --workspace packages/svg-creator && npm run build --workspace packages/action",
     "test": "npm test --workspaces --if-present"
   },
   "devDependencies": {
