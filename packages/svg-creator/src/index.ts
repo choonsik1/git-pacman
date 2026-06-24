@@ -29,7 +29,7 @@ function renderFloor(x: number, y: number): string {
 
 function renderDot(x: number, y: number, opacityAnim: string): string {
   // SPRITE: yellow pellet dot — replace circle with custom artwork
-  return `<circle cx="${x + 7}" cy="${y + 7}" r="2.5" fill="#FFD700">${opacityAnim}</circle>`;
+  return `<circle cx="${x + 7}" cy="${y + 7}" r="3.5" fill="#FFD700">${opacityAnim}</circle>`;
 }
 
 // ─── Character renderers ──────────────────────────────────────────────────────
