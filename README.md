@@ -91,3 +91,11 @@ GH_TOKEN=<token> USERNAME=AnthonyBSong OUTPUT_PATH=dist/pacman.svg \
   node packages/action/dist/index.js
 open dist/pacman.svg
 ```
+
+## GitHub App
+
+`git-pacman` uses a GitHub App to securely push the generated animation back to your repository.
+
+The app only needs repository content access so the workflow can write the generated `pacman.svg` file to the `output` branch. This avoids using a personal access token and keeps the setup cleaner for users who fork the project.
+
+Git Pacman Viz is inspired by [Platane/snk](https://github.com/Platane/snk), but uses a Pac-Man-style animation, path traversal, dots, cherries, and ghost sprites to visualize your GitHub contribution chart.
