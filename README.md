@@ -4,10 +4,11 @@ Turns your GitHub contribution chart into an animated Pac-Man eating dots. Embed
 
 ## Embed in your README
 
-After the Action runs, copy this into your profile `README.md`:
+After the Action runs, copy this into your profile `README.md`
+(replace `YOUR_USERNAME` with your GitHub username):
 
 ```md
-![Pac-Man contributions](https://raw.githubusercontent.com/AnthonyBSong/git-pacman/output/pacman.svg)
+![Pac-Man contributions](https://raw.githubusercontent.com/YOUR_USERNAME/git-pacman/output/pacman.svg)
 ```
 
 ## How it works
@@ -18,19 +19,35 @@ After the Action runs, copy this into your profile `README.md`:
 4. An animated SVG is generated: Pac-Man moves along the path eating dots, with ghosts trailing behind.
 5. The SVG is pushed to the `output` branch and served via raw.githubusercontent.com.
 
-## Setup
+## Setup (for your own profile)
 
-### 1. Add a secret
+### 1. Fork this repo
 
-Go to **Settings → Secrets and variables → Actions** and add:
+Fork `AnthonyBSong/git-pacman` to your own account. The workflow will
+automatically use your username via `github.repository_owner`.
+
+### 2. Create and install the GitHub App
+
+1. Go to **github.com → Settings → Developer settings → GitHub Apps → New GitHub App**
+2. Set **Homepage URL** to your fork's URL
+3. Disable webhooks
+4. Permissions: `Contents: Read & Write`, `Metadata: Read-only`
+5. Where can this be installed: **Any account**
+6. Create the app, note the **App ID**, and generate a **private key** (downloads a `.pem`)
+7. On the App page → **Install App** → install it on your fork
+
+### 3. Add secrets to your fork
+
+Go to your fork → **Settings → Secrets and variables → Actions**:
 
 | Secret | Value |
 |--------|-------|
-| `GH_TOKEN` | Personal Access Token with `read:user` scope |
+| `APP_ID` | The number shown on your GitHub App page |
+| `APP_PRIVATE_KEY` | Full contents of the downloaded `.pem` file |
 
-### 2. Trigger the Action
+### 4. Trigger the Action
 
-Push to `main` or run **Actions → Generate Pac-Man contribution animation → Run workflow**.
+Run **Actions → Generate Pac-Man contribution animation → Run workflow**.
 
 The Action runs automatically every day at midnight UTC after that.
 

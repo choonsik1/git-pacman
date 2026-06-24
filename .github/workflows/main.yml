@@ -44,7 +44,7 @@ jobs:
       - name: Generate SVG
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          USERNAME: AnthonyBSong
+          USERNAME: ${{ github.repository_owner }}
           OUTPUT_PATH: dist/pacman.svg
         run: node packages/action/dist/index.js
 
