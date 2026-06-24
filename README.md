@@ -1,7 +1,7 @@
 # git-pacman
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/platane/platane/main.yml?label=action&style=flat-square)](https://github.com/AnthonyBSong/git-pacman/actions/)
-[![GitHub release](https://img.shields.io/github/release/platane/snk.svg?style=flat-square)](https://github.com/platane/snk/releases/latest)
-[![GitHub marketplace](https://img.shields.io/badge/marketplace-snake-blue?logo=github&style=flat-square)](https://github.com/marketplace/actions/generate-snake-game-from-github-contribution-grid)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/AnthonyBSong/git-pacman/main.yml?label=action&style=flat-square)](https://github.com/AnthonyBSong/git-pacman/actions/)
+[![GitHub release](https://img.shields.io/github/release/AnthonyBSong/git-pacman.svg?style=flat-square)](https://github.com/AnthonyBSong/git-pacman/releases/latest)
+[![GitHub App](https://img.shields.io/badge/app-git--pacman--viz-blue?logo=github&style=flat-square)](https://github.com/apps/git-pacman-viz)
 ![type definitions](https://img.shields.io/npm/types/typescript?style=flat-square)
 
 ![Pac-Man contributions](https://raw.githubusercontent.com/AnthonyBSong/git-pacman/output/pacman.svg)
@@ -64,13 +64,14 @@ Replace the placeholder files in [assets/sprites/](assets/sprites/) with your ow
 | File | Used for |
 |------|----------|
 | `pacman.svg` | Pac-Man character (14×14px, facing right) |
-| `ghost.svg` | Ghost template (recolored per ghost in code) |
+| `ghost_{right,left}_{blue,red,pink,yellow}.svg` | Ghost variants per direction and color |
 | `dot.svg` | Active contribution day pellet |
+| `cherry.svg` | Rare pickup at ~2.5% of active dots |
 | `empty.svg` | Inactive day background cell |
 
-After replacing sprites, update the inline `<g>` blocks in
+After replacing sprites, update the matching shape elements in
 [packages/svg-creator/src/index.ts](packages/svg-creator/src/index.ts)
-to embed your artwork directly (SVG `<use>` references only work within a single document).
+— everything renders inline so the SVG stays self-contained.
 
 ## Project structure
 
