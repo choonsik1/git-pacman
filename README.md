@@ -4,18 +4,9 @@
 [![GitHub App](https://img.shields.io/badge/app-git--pacman--viz-blue?logo=github&style=flat-square)](https://github.com/apps/git-pacman-viz)
 ![type definitions](https://img.shields.io/npm/types/typescript?style=flat-square)
 
-![Pac-Man contributions](https://raw.githubusercontent.com/AnthonyBSong/git-pacman/output/pacman.svg)
+![Pac-Man contributions](assets/figures/pacman.svg)
 
 Turns your GitHub contribution chart into an animated Pac-Man animation. Can be embedded in any GitHub profile README.
-
-## Embed in your README
-
-After the Action runs, copy this into your profile `README.md`
-(replace `YOUR_USERNAME` with your GitHub username):
-
-```md
-![Pac-Man contributions](https://raw.githubusercontent.com/YOUR_USERNAME/git-pacman/output/pacman.svg)
-```
 
 ## How it works
 
@@ -25,7 +16,7 @@ After the Action runs, copy this into your profile `README.md`
 4. An animated SVG is generated: Pac-Man moves along the path eating dots, with ghosts trailing behind.
 5. The SVG is pushed to the `output` branch and served via raw.githubusercontent.com.
 
-## Setup (for your own profile)
+## Usage Guide
 
 ### 1. Fork this repo
 
@@ -56,6 +47,15 @@ Go to your fork → **Settings → Secrets and variables → Actions**:
 Run **Actions → Generate Pac-Man contribution animation → Run workflow**.
 
 The Action runs automatically every day at midnight UTC after that.
+
+### 5. Add to Personal Readme
+
+After the Action runs, copy this into your profile `README.md`
+(replace `YOUR_USERNAME` with your GitHub username):
+
+```md
+![Pac-Man contributions](https://raw.githubusercontent.com/YOUR_USERNAME/git-pacman/output/pacman.svg)
+```
 
 ## Customizing sprites
 
