@@ -242,7 +242,7 @@ function sprinkleCherries(cells: Cell[][], cols: number, rows: number): void {
     for (let r = 0; r < rows; r++)
       if (cells[c][r].cellType === "active") active.push([c, r]);
 
-  const count = Math.floor(active.length * 0.05);
+  const count = Math.floor(active.length * 0.025);
   if (count === 0) return;
 
   // Pick `count` evenly-spaced indices through the active list
