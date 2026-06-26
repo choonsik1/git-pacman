@@ -27,9 +27,7 @@ Add this to a workflow in your `YOUR_USERNAME/YOUR_USERNAME` profile repository:
     github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## Full workflow 
-
-### 1. create `.github/workflows/pacman.yml`:
+### 1. Create `.github/workflows/pacman.yml`:
 
 ```yaml
 name: Generate Pac-Man contribution animation
