@@ -28,8 +28,18 @@ function renderFloor(x: number, y: number): string {
 }
 
 function renderDot(x: number, y: number, opacityAnim: string): string {
-  // SPRITE: yellow pellet dot — replace circle with custom artwork
-  return `<circle cx="${x + 7}" cy="${y + 7}" r="3.5" fill="#FFD700">${opacityAnim}</circle>`;
+  // SPRITE: dog-bone treat — replaces the yellow pellet. Fades out when eaten.
+  const tan = "#E89141";
+  const dark = "#D9833E";
+  return `<g>
+    ${opacityAnim}
+    <circle cx="${x + 4.5}" cy="${y + 5}" r="2" fill="${tan}"/>
+    <circle cx="${x + 4.5}" cy="${y + 9}" r="2" fill="${tan}"/>
+    <circle cx="${x + 9.5}" cy="${y + 5}" r="2" fill="${tan}"/>
+    <circle cx="${x + 9.5}" cy="${y + 9}" r="2" fill="${tan}"/>
+    <rect x="${x + 4.5}" y="${y + 5}" width="5" height="4" fill="${tan}"/>
+    <rect x="${x + 5}" y="${y + 6.4}" width="4" height="1.2" fill="${dark}"/>
+  </g>`;
 }
 
 function renderCherry(x: number, y: number, opacityAnim: string): string {
